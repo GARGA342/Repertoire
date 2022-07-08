@@ -7,7 +7,44 @@
         {
             "name": "missioneira",
             "note": "G"
+        },
+        {
+            "name": "de bota nova",
+            "note": "E"
+        },
+        {
+            "name": "aba larga",
+            "note": "D"
+        },
+        {
+            "name": "mercedita",
+            "note": "Em"
+        },
+        {
+            "name": "saudade amarga dos mates",
+            "note": "F#"
+        },
+        {
+            "name": "alma de pampa",
+            "note": "E"
+        },
+        {
+            "name": "roda morena",
+            "note": "F"
         }
     ],
-    "songs_to_take": []
+    "songs_to_take": [
+        {
+            "name": "bom de baile"
+        },
+        {
+            "name": "talho de tramontina"
+        },
+        {
+            "name": "p\u00e9 de cabra"
+        },
+        {
+            "name": "nossa morada"
+        }
+    ]
 }
