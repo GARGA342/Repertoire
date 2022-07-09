@@ -1,6 +1,5 @@
 from os import system, name
 import json
-from turtle import numinput
 
 title = 'My Repertoire:'
 
