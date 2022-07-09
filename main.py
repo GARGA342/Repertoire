@@ -74,7 +74,34 @@ def findByName():
     print('Find by Name')
 
 def findByNote():
-    print('Find by Note')
+    while (True):
+        note = str(input('Enter the note: ')).strip().capitalize()
+        if note == '' or note.isnumeric():
+            print('Enter a valid note!\n')
+        else:
+            clear()
+            break
+    try:
+        with open('musics.json', 'r') as file:
+            file_data = json.load(file)
+            data = file_data['songs_taken']
+
+            if note in str(data):
+                music_list = {"songs_taken": []}
+
+                for i in data:
+                    if i['note'] == note:
+                        music_list['songs_taken'].append(i)
+
+                listNamesAndNotes(music_list)
+                file.close()
+            else:
+                file.close()
+                print('No results found!')
+                input("\nPlease press enter to proceed")
+    except:
+        print('Error!')
+        input("\nPlease press enter to proceed")
 
 def listMusics():
     while(True):
