@@ -31,6 +31,18 @@
         {
             "name": "mercedita",
             "note": "Em"
+        },
+        {
+            "name": "novidade velha",
+            "note": "G#"
+        },
+        {
+            "name": "bugio do rio grande",
+            "note": "F#"
+        },
+        {
+            "name": "nossa vaneira",
+            "note": "B"
         }
     ],
     "songs_to_take": [
@@ -45,6 +57,12 @@
         },
         {
             "name": "nossa morada"
+        },
+        {
+            "name": "meu cavalo, meu amigo"
+        },
+        {
+            "name": "estampa"
         }
     ]
 }

@@ -29,44 +29,40 @@ def registerMusic():
     if opt == '0':
         return
 
-    try:
-        while (True):
-            name = str(input('\nEnter song name: ')).strip().lower()
-            if name == "":
-                print('Enter a name!\n')
-            else:
-                clear()
-                break
-
-        data = { "name": name }
-        if opt == '1':
-            with open('musics.json', 'r+') as file:
-                file_data = json.load(file)
-                if data not in file_data['songs_to_take']:
-                    file_data['songs_to_take'].append(data)
-                    file.seek(0)
-                    json.dump(file_data, file, indent=4)
-                else:
-                    print('\nThis song is already on the list!')
-                    return
+    while (True):
+        name = str(input('\nEnter song name: ')).strip().lower()
+        if name == "":
+            print('Enter a name!\n')
         else:
-            while (True):
-                note = str(input('Enter the tone of the song: ')).strip().capitalize()
-                if note == '':
-                    print('Enter a note!\n')
-                else:
-                    clear()
-                    break     
-            data = { "name": name, "note": note }
-            with open('musics.json', 'r+') as file:
-                file_data = json.load(file)
-                if data not in file_data['songs_taken']:
-                    file_data['songs_taken'].append(data)
-                    file.seek(0)
-                    json.dump(file_data, file, indent=4)
-                else:
-                    print('\nThis song is already on the list!\n')
-                    return
+            clear()
+            break
+
+    try:
+        with open('musics.json', 'r+') as file:
+            file_data = json.load(file)
+            if opt == '1':
+                music_list = file_data['songs_to_take']
+                data = { "name": name }
+            else:
+                music_list = file_data['songs_taken']
+                while (True):
+                    note = str(input('Enter the tone of the song: ')).strip().capitalize()
+                    if note == '' or note.isnumeric():
+                        print('Enter a valid note!\n')
+                    else:
+                        clear()
+                        data = { "name": name, "note": note }
+                        break
+                
+            if data not in music_list:
+                music_list.append(data)
+                file.seek(0)
+                json.dump(file_data, file, indent=4)
+            else:
+                file.close()
+                print('\nThis song is already on the list!')
+                input("\nPlease press enter to proceed")
+                return
 
         file.close()
         print('\nSuccessfully registered!')
