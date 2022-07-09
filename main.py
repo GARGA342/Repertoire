@@ -1,5 +1,6 @@
 from os import system, name
 import json
+from turtle import numinput
 
 title = 'My Repertoire:'
 
@@ -119,7 +120,64 @@ def listMusics():
         input("\nPlease press enter to proceed")
 
 def removeMusic():
-    print('Removed!')
+    clear()
+    while(True):
+        print('[1] To Take')
+        print('[2] Taken')
+        print('[0] Back')
+
+        opt = str(input('Enter the option: ')).strip()
+
+        if opt == '0':
+            return
+        elif opt == '1' or opt == '2':
+            break
+        else:
+            print("Enter a valid option!")
+
+    while(True):
+        name = str(input('Enter the song name: ')).strip().lower()
+        if name != "":
+            break
+        else:
+            print('Invalid name!')
+
+    if opt == '2':
+        try:
+            with open('musics.json', 'r') as file:
+                data_file = json.load(file)
+                data = data_file['songs_taken']
+                for i, element in enumerate(data):
+                    if element['name'] == name:
+                        data.pop(i)
+            file.close()
+            
+            with open('musics.json', 'w') as file:
+                json.dump(data_file, file, indent=4)
+            file.close()    
+
+            print("\nSong removed!")
+        except:
+            print('Error!')
+    else:
+        try:
+            with open('musics.json', 'r') as file:
+                data_file = json.load(file)
+                data = data_file['songs_to_take']
+                for i, element in enumerate(data):
+                    if element['name'] == name:
+                        data.pop(i)
+            file.close()
+            
+            with open('musics.json', 'w') as file:
+                json.dump(data_file, file, indent=4)
+            file.close()    
+            
+            print("\nSong removed!")
+        except:
+            print('Error!')
+
+    input("\nPlease press enter to proceed")
 
 def listNamesAndNotes(file_data):
     clear()
