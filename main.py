@@ -147,16 +147,20 @@ def removeMusic():
             with open('musics.json', 'r') as file:
                 data_file = json.load(file)
                 data = data_file['songs_taken']
-                for i, element in enumerate(data):
-                    if element['name'] == name:
-                        data.pop(i)
-            file.close()
             
-            with open('musics.json', 'w') as file:
-                json.dump(data_file, file, indent=4)
-            file.close()    
+                if name in str(data):
+                    for i, element in enumerate(data):
+                        if element['name'] == name:
+                            data.pop(i)
+                    file.close()
+                
+                    with open('musics.json', 'w') as file:
+                        json.dump(data_file, file, indent=4)
+                    file.close()    
 
-            print("\nSong removed!")
+                    print("\nSong removed!")
+                else:
+                    print("\nMusic not found!")
         except:
             print('Error!')
     else:
@@ -164,16 +168,19 @@ def removeMusic():
             with open('musics.json', 'r') as file:
                 data_file = json.load(file)
                 data = data_file['songs_to_take']
+            
+            if name in str(data):
                 for i, element in enumerate(data):
                     if element['name'] == name:
                         data.pop(i)
-            file.close()
+                file.close()
             
-            with open('musics.json', 'w') as file:
-                json.dump(data_file, file, indent=4)
-            file.close()    
-            
-            print("\nSong removed!")
+                with open('musics.json', 'w') as file:
+                    json.dump(data_file, file, indent=4)
+                file.close()        
+                print("\nSong removed!")
+            else:
+                print("\nMusic not found!")
         except:
             print('Error!')
 
