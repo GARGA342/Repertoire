@@ -142,47 +142,29 @@ def removeMusic():
         else:
             print('Invalid name!')
 
-    if opt == '2':
-        try:
-            with open('musics.json', 'r') as file:
-                data_file = json.load(file)
-                data = data_file['songs_taken']
-            
-                if name in str(data):
-                    for i, element in enumerate(data):
-                        if element['name'] == name:
-                            data.pop(i)
-                    file.close()
-                
-                    with open('musics.json', 'w') as file:
-                        json.dump(data_file, file, indent=4)
-                    file.close()    
-
-                    print("\nSong removed!")
-                else:
-                    print("\nMusic not found!")
-        except:
-            print('Error!')
-    else:
-        try:
-            with open('musics.json', 'r') as file:
-                data_file = json.load(file)
+    try:
+        with open('musics.json', 'r') as file:
+            data_file = json.load(file)
+            if opt == '1':
                 data = data_file['songs_to_take']
-            
+            else:
+                data = data_file['songs_taken']
+
             if name in str(data):
                 for i, element in enumerate(data):
                     if element['name'] == name:
                         data.pop(i)
                 file.close()
-            
+                
                 with open('musics.json', 'w') as file:
                     json.dump(data_file, file, indent=4)
-                file.close()        
+                file.close()    
+
                 print("\nSong removed!")
             else:
                 print("\nMusic not found!")
-        except:
-            print('Error!')
+    except:
+        print('Error!')
 
     input("\nPlease press enter to proceed")
 
