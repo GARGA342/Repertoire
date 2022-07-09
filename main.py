@@ -71,7 +71,33 @@ def registerMusic():
     input("\nPlease press enter to proceed")
 
 def findByName():
-    print('Find by Name')
+    while (True):
+        name = str(input('Enter the music name: ')).strip().lower()
+        if name == '' or name.isnumeric() or name in "#{}[]":
+            print('Enter a valid name!\n')
+        else:
+            clear()
+            break
+
+    try:
+        with open('musics.json') as file:
+            data_file = json.load(file)
+            taken = data_file['songs_taken']
+            to_take = data_file['songs_to_take']
+            music_list = {"songs_taken": [], "songs_to_take": []}
+
+            for i in taken:
+                if name in str(i['name']):
+                    music_list['songs_taken'].append(i)
+
+            for i in to_take:
+                if name in str(i['name']):
+                    music_list['songs_to_take'].append(i)
+        file.close()
+        listNamesAndNotes(music_list)
+
+    except:
+        print('Error')
 
 def findByNote():
     while (True):
@@ -258,7 +284,7 @@ while(True):
         clear()
 
         if opt == '0':
-            print('BYE!')
+            print('BYE!\n')
             break
 
         elif opt == '1':
