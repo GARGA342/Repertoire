@@ -1,8 +1,6 @@
 from os import system, name
 import json
 
-title = 'My Repertoire:'
-
 def clear():
     # for windows
     if name == 'nt':
@@ -13,27 +11,28 @@ def clear():
         _ = system('clear')
 
 def registerMusic():
+    print(f"{'Register Music:'.center(50)}\n{'#'*50}")
+    print('[1] To Take')
+    print('[2] Taken')
+    print('[0] Back')
     while(True):
-        print('[1] To Take')
-        print('[2] Taken')
-        print('[0] Back')
-
         opt = str(input('Option: ')).strip()
 
         if opt == '1' or opt == '2' or opt == '0':
             break
         else:
-            print('Enter a valid option!\n')
+            print("Enter a valid option!\n")
     
     if opt == '0':
         return
 
     while (True):
-        name = str(input('\nEnter song name: ')).strip().lower()
+        name = str(input("\nEnter song name: ")).strip().lower()
         if name == "":
-            print('Enter a name!\n')
+            print("Enter a name!\n")
+        elif name == '0':
+            return
         else:
-            clear()
             break
 
     try:
@@ -46,8 +45,10 @@ def registerMusic():
                 music_list = file_data['songs_taken']
                 while (True):
                     note = str(input('Enter the tone of the song: ')).strip().capitalize()
-                    if note == '' or note.isnumeric():
-                        print('Enter a valid note!\n')
+                    if note == '0':
+                        return
+                    elif note == '' or note.isnumeric():
+                        print("Enter a valid note!\n")
                     else:
                         clear()
                         data = { "name": name, "note": note }
@@ -59,22 +60,28 @@ def registerMusic():
                 json.dump(file_data, file, indent=4)
             else:
                 file.close()
-                print('\nThis song is already on the list!')
+                print("\nThis song is already on the list!")
                 input("\nPlease press enter to proceed")
                 return
 
         file.close()
-        print('\nSuccessfully registered!')
+        print("\nSuccessfully registered!")
     except:
-        print('\nError when registering')
+        print("\nError when registering")
     
     input("\nPlease press enter to proceed")
+    clear()
+    registerMusic()
 
 def findByName():
+    print(f"{'Find Music by Name:'.center(50)}\n{'#'*50}")
+    print("[0] Back\n")
     while (True):
         name = str(input('Enter the music name: ')).strip().lower()
-        if name == '' or name.isnumeric() or name in "#{}[]":
-            print('Enter a valid name!\n')
+        if name == '0':
+            return
+        elif name == '' or name in "#{}[]":
+            print("Enter a valid name!\n")
         else:
             clear()
             break
@@ -94,16 +101,20 @@ def findByName():
                 if name in str(i['name']):
                     music_list['songs_to_take'].append(i)
         file.close()
-        listNamesAndNotes(music_list)
+        listAll(music_list)
 
     except:
         print('Error')
 
 def findByNote():
+    print(f"{'Find Music by Note:'.center(50)}\n{'#'*50}")
+    print("[0] Back\n")
     while (True):
         note = str(input('Enter the note: ')).strip().capitalize()
-        if note == '' or note.isnumeric():
-            print('Enter a valid note!\n')
+        if note == '0':
+            return
+        elif note == '' or note.isnumeric():
+            print("Enter a valid note!\n")
         else:
             clear()
             break
@@ -131,6 +142,7 @@ def findByNote():
 
 def listMusics():
     while(True):
+        print(f"{'List Musics:'.center(50)}\n{'#'*50}")
         print('[1] To Take')
         print('[2] Taken')
         print('[3] All')
@@ -141,7 +153,7 @@ def listMusics():
         if opt == '1' or opt == '2' or opt == '3' or opt == '0':
             break
         else:
-            print('Enter a valid option!\n')
+            print("Enter a valid option!\n")
 
     if opt == '0':
         return
@@ -164,16 +176,19 @@ def listMusics():
                 listAll(file_data)
         file.close()
     except:
-        print('\nError when registering')
+        print("\nError when registering")
         input("\nPlease press enter to proceed")
+    clear()
+    listMusics()
 
 def removeMusic():
     clear()
-    while(True):
-        print('[1] To Take')
-        print('[2] Taken')
-        print('[0] Back')
+    print(f"{'Remove Music:'.center(50)}\n{'#'*50}")
+    print('[1] To Take')
+    print('[2] Taken')
+    print('[0] Back')
 
+    while(True):
         opt = str(input('Enter the option: ')).strip()
 
         if opt == '0':
@@ -181,11 +196,13 @@ def removeMusic():
         elif opt == '1' or opt == '2':
             break
         else:
-            print("Enter a valid option!")
+            print("Enter a valid option!\n")
 
     while(True):
-        name = str(input('Enter the song name: ')).strip().lower()
-        if name != "":
+        name = str(input("\nEnter the song name: ")).strip().lower()
+        if name == '0':
+            return
+        elif name != "":
             break
         else:
             print('Invalid name!')
@@ -212,9 +229,10 @@ def removeMusic():
             else:
                 print("\nMusic not found!")
     except:
-        print('Error!')
+        print("\nError!")
 
     input("\nPlease press enter to proceed")
+    removeMusic()
 
 def listNamesAndNotes(file_data):
     clear()
@@ -245,7 +263,7 @@ def listNames(file_data):
         print('#'+'-'*48+'#')
     input("\n\nPlease press enter to proceed")
 
-def listAll(file_data):    
+def listAll(file_data):
     print('#'*70)
     head_name = 'NAME'
     head_note = 'NOTE'
@@ -268,40 +286,41 @@ def listAll(file_data):
         print('#'+'-'*68+'#')
     input("\n\nPlease press enter to proceed")
 
-while(True):
+def main():
     while(True):
-        clear()
-        print(f'{title.center(50)}\n{"#"*50}')
+        while(True):
+            clear()
+            print(f"{'My Repertoire'.center(50)}\n{'#'*50}")
 
-        print('[1] - Register Music')
-        print('[2] - Find Music by Name')
-        print('[3] - Find Music by Note')
-        print('[4] - List Musics')
-        print('[5] - Remove Music')
-        print('[0] - Exit')
+            print('[1] - Register Music')
+            print('[2] - Find Music by Name')
+            print('[3] - Find Music by Note')
+            print('[4] - List Musics')
+            print('[5] - Remove Music')
+            print('[0] - Exit')
 
-        opt = str(input('Option: ')).strip()
-        clear()
+            opt = str(input('Option: ')).strip()
+            clear()
 
-        if opt == '0':
-            print('BYE!\n')
-            break
+            if opt == '0':
+                print("BYE!\n")
+                break
 
-        elif opt == '1':
-            registerMusic()
+            elif opt == '1':
+                registerMusic()
 
-        elif opt == '2':
-            findByName()
+            elif opt == '2':
+                findByName()
 
-        elif opt == '3':
-            findByNote()
+            elif opt == '3':
+                findByNote()
 
-        elif opt == '4':
-            listMusics()
+            elif opt == '4':
+                listMusics()
 
-        elif opt == '5':
-            removeMusic()
+            elif opt == '5':
+                removeMusic()
 
-        else:
-            print('Enter a valid option!')
-    break
+        break
+
+main()

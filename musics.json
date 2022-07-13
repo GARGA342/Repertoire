@@ -167,6 +167,18 @@
         {
             "name": "pago dileto",
             "note": "A"
+        },
+        {
+            "name": "aos domingos",
+            "note": "G"
+        },
+        {
+            "name": "pra campear namoro",
+            "note": "A"
+        },
+        {
+            "name": "est\u00e2ncia dos hack",
+            "note": "F#"
         }
     ],
     "songs_to_take": [
@@ -331,6 +343,9 @@
         },
         {
             "name": "tert\u00falha"
+        },
+        {
+            "name": "gavi\u00e3o"
         }
     ]
 }
