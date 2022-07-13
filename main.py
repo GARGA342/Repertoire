@@ -80,7 +80,7 @@ def findByName():
             break
 
     try:
-        with open('musics.json') as file:
+        with open('musics.json', 'r') as file:
             data_file = json.load(file)
             taken = data_file['songs_taken']
             to_take = data_file['songs_to_take']
