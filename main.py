@@ -1,5 +1,7 @@
 from os import system, name
 import json
+import os
+import io
 
 def clear():
     # for windows
@@ -286,7 +288,18 @@ def listAll(file_data):
         print('#'+'-'*68+'#')
     input("\n\nPlease press enter to proceed")
 
+def createFile():
+    data = {
+        "songs_taken": [],
+        "songs_to_take": []
+    }
+
+    if not(os.path.isfile("musics.json") and os.access("musics.json", os.R_OK)):
+        with io.open(os.path.join(".", 'musics.json'), 'w') as file:
+            file.write(json.dumps(data))
+
 def main():
+    createFile()
     while(True):
         while(True):
             clear()
